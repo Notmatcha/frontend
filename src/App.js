@@ -16,7 +16,7 @@ function App() {
   const [phone, setPhone] = useState("");
   const [customerId, setCustomerId] = useState('');
   const [isSignup, setIsSignup] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
+  const [otpSent, setOtpSent] = useState(false); 
   const [otp, setOtp] = useState("");
 
   const signup = async () => {
