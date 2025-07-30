@@ -14,18 +14,18 @@ function App() {
   const [password, setPassword] = useState("password123");
   const [customerId, setCustomerId] = useState('');
 
-  const signUp = async() =>{
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`,
-        { email, password }
-      );
+  // const signUp = async() =>{
+  //   try {
+  //     const res = await axios.post(
+  //       `${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`,
+  //       { email, password }
+  //     );
 
-    }catch (err) {
-      alert(" signup failed");
-      console.error(err);
-    }
-  };
+  //   }catch (err) {
+  //     alert(" signup failed");
+  //     console.error(err);
+  //   }
+  // };
   const login = async () => {
     try {
       const res = await axios.post(
