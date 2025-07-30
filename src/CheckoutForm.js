@@ -15,7 +15,7 @@ function CheckoutForm({ amount, token, customerId }) {
 
   useEffect(() => {
     let cardElement = null;
-    
+
     const initStripe = async () => {
       const stripeInstance = await stripePromise;
       setStripe(stripeInstance);
@@ -46,7 +46,7 @@ function CheckoutForm({ amount, token, customerId }) {
     initStripe();
     return () => {
       if (cardElement) {
-        cardElement.destroy(); // ✅ unmount on cleanup
+        cardElement.destroy(); 
       }
     };
   }, [amount, token, customerId]);
@@ -63,12 +63,12 @@ function CheckoutForm({ amount, token, customerId }) {
     });
 
     if (error) {
-      messageRef.current.textContent = `❌ ${error.message}`;
+      messageRef.current.textContent = ` ${error.message}`;
     } else if (paymentIntent.status === "succeeded") {
-      messageRef.current.textContent = "✅ Payment successful!";
+      messageRef.current.textContent = " Payment successful!";
       card.clear();
     } else {
-      messageRef.current.textContent = "⚠️ Payment failed or pending.";
+      messageRef.current.textContent = " Payment failed or pending.";
     }
 
     setLoading(false);

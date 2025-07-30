@@ -14,6 +14,18 @@ function App() {
   const [password, setPassword] = useState("password123");
   const [customerId, setCustomerId] = useState('');
 
+  const signUp = async() =>{
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`,
+        { email, password }
+      );
+
+    }catch (err) {
+      alert(" signup failed");
+      console.error(err);
+    }
+  };
   const login = async () => {
     try {
       const res = await axios.post(
@@ -22,9 +34,9 @@ function App() {
       );
       setToken(res.data.token);
       setCustomerId(res.data.user.stripeCustomerId);
-      alert("✅ Login successful");
+      alert(" Login successful");
     } catch (err) {
-      alert("❌ Login failed");
+      alert(" Login failed");
       console.error(err);
     }
   };
@@ -50,7 +62,7 @@ function App() {
       <h2>Payment</h2>
       {token ? (
         <Elements stripe={stripePromise}>
-          <CheckoutForm token={token} amount={199} customerId={customerId} /> {/* $1.99 SGD */}
+          <CheckoutForm token={token} amount={199} customerId={customerId} /> {/* $199 SGD */}
         </Elements>
       ) : (
         <p>Please log in to make a payment.</p>
