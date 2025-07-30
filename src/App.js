@@ -16,6 +16,8 @@ function App() {
   const [phone, setPhone] = useState("");
   const [customerId, setCustomerId] = useState('');
   const [isSignup, setIsSignup] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
 
   const signup = async () => {
     try {
@@ -28,13 +30,30 @@ function App() {
           password,
         }
       );
-      alert("Signup successful! Please log in.");
-      setIsSignup(false); // switch to login view
+      setOtpSent(true);
+      alert("OTP sent to your email");
     } catch (err) {
       alert("Signup failed");
       console.error(err);
     }
   };
+
+  const verifyOtp = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/verify-otp`, {
+        email,
+        otp,
+      });
+      alert("Signup successful! Please log in.");
+      setIsSignup(false);
+      setOtpSent(false);
+      setOtp("");
+    } catch (err) {
+      alert("OTP verification failed");
+      console.error(err);
+    }
+  };
+
   const login = async () => {
     try {
       const res = await axios.post(
@@ -43,9 +62,9 @@ function App() {
       );
       setToken(res.data.token);
       setCustomerId(res.data.user.stripeCustomerId);
-      alert(" Login successful");
+      alert("Login successful");
     } catch (err) {
-      alert(" Login failed");
+      alert("Login failed");
       console.error(err);
     }
   };
@@ -85,13 +104,29 @@ function App() {
         style={{ display: "block", marginBottom: "0.5rem" }}
       />
 
-      <button onClick={isSignup ? signup : login} style={{ marginRight: "1rem" }}>
-        {isSignup ? "Sign Up" : "Login"}
-      </button>
+      {!otpSent ? (
+        <button onClick={isSignup ? signup : login} style={{ marginRight: "1rem" }}>
+          {isSignup ? "Sign Up" : "Login"}
+        </button>
+      ) : null}
 
       <button onClick={() => setIsSignup(!isSignup)}>
         {isSignup ? "Switch to Login" : "Switch to Signup"}
       </button>
+
+      {otpSent && (
+        <>
+          <input 
+            placeholder="Enter OTP" 
+            value={otp} 
+            onChange={(e) => setOtp(e.target.value)}
+            style={{ display: "block", marginTop: "1rem" }}
+          />
+          <button onClick={verifyOtp} style={{ marginTop: "0.5rem" }}>
+            Verify OTP
+          </button>
+        </>
+      )}
 
       <h2 style={{ marginTop: "2rem" }}>Payment</h2>
       {token ? (
