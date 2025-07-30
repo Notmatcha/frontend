@@ -21,13 +21,13 @@ function CheckoutForm({ amount, token, customerId }) {
       setStripe(stripeInstance);
 
       try {
-        const response = await fetch("http://localhost:5000/create-payment-intent", {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/payments/create-payment-intent`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ amount, currency: "sgd", customerId }),
+          body: JSON.stringify({ amount, customerId }),
         });
 
         const data = await response.json();
