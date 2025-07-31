@@ -25,7 +25,7 @@ function CheckoutForm({ amount, token, customerId }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token || sessionStorage.getItem('authToken')}`,
           },
           body: JSON.stringify({ amount, customerId }),
         });
