@@ -9,7 +9,7 @@ const stripePromise = loadStripe(
 );
 
 function App() {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(sessionStorage.getItem('authToken') || "");
   const [email, setEmail] = useState("johns@example.com");
   const [password, setPassword] = useState("password123");
   const [name, setName] = useState("");
@@ -61,6 +61,7 @@ function App() {
         { email, password }
       );
       setToken(res.data.token);
+      sessionStorage.setItem('authToken', res.data.token);
       setCustomerId(res.data.user.stripeCustomerId);
       alert("Login successful");
     } catch (err) {
