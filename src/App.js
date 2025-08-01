@@ -33,7 +33,14 @@ function App() {
       setOtpSent(true);
       alert("OTP sent to your email");
     } catch (err) {
-      alert("Signup failed");
+      if (err.response) {
+      // Backend validation errors (400 status)
+      if (err.response.data.error) {
+        alert(err.response.data.error); 
+      } 
+    } else {
+      alert('Signup failed - network error');
+    }
       console.error(err);
     }
   };
