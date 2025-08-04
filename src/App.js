@@ -14,6 +14,7 @@ function App() {
   const [password, setPassword] = useState("password123");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [customerId, setCustomerId] = useState('');
   const [isSignup, setIsSignup] = useState(false);
   const [otpSent, setOtpSent] = useState(false); 
@@ -28,6 +29,7 @@ function App() {
           email,
           phone,
           password,
+          address,
         }
       );
       setOtpSent(true);
@@ -93,6 +95,12 @@ function App() {
             placeholder="Phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            style={{ display: "block", marginBottom: "0.5rem" }}
+          />
+          <input
+            placeholder="Address (e.g., 123 Hotel Street, Singapore)"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             style={{ display: "block", marginBottom: "0.5rem" }}
           />
         </>
